@@ -30,6 +30,7 @@ function getComputerChoice() {
 // eval function
 function playRound(playerSelection, computerSelection) {
   gameCount++;
+  let outputMessage;
   let roundMessage;
 
   if (playerSelection == computerSelection) {
@@ -70,7 +71,17 @@ function playRound(playerSelection, computerSelection) {
       }
     }
   }
-  const outputMessage = `Games played:${gameCount}\n${roundMessage}\nPlayer: ${playerWins} vs Computer: ${computerWins}`;
+  outputMessage = `Games played: ${gameCount}\n${roundMessage}\nPlayer: ${playerWins} vs Computer: ${computerWins}\n`;
+
+  if (gameCount == 5) {
+    if (playerWins > computerWins) {
+      outputMessage += "PLAYER WINS!";
+    } else if (computerWins > playerWins) {
+      outputMessage += "COMPUTER WINS!";
+    } else {
+      outputMessage += "IT'S A DRAW!"
+    }
+  }
   console.log(outputMessage);
 }
 
