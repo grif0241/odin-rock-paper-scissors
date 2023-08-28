@@ -29,7 +29,6 @@ function getComputerChoice() {
 
 // eval function
 function playRound(playerSelection, computerSelection) {
-  gameCount++;
   let outputMessage;
   let roundMessage;
 
@@ -72,17 +71,8 @@ function playRound(playerSelection, computerSelection) {
     }
   }
   outputMessage = `Games played: ${gameCount}\n${roundMessage}\nPlayer: ${playerWins} vs Computer: ${computerWins}\n`;
-
-  if (gameCount == 5) {
-    if (playerWins > computerWins) {
-      outputMessage += "PLAYER WINS!";
-    } else if (computerWins > playerWins) {
-      outputMessage += "COMPUTER WINS!";
-    } else {
-      outputMessage += "IT'S A DRAW!"
-    }
-  }
   console.log(outputMessage);
+  return outputMessage;
 }
 
 // point of entry function
@@ -90,8 +80,18 @@ function game() {
   while (gameCount < 5) {
     playerSelection = prompt("Choose rock, paper or scissors").toLowerCase();
     if (playerSelection == "rock" || playerSelection == "scissors" || playerSelection == "paper") {
+      gameCount++;
       computerSelection = getComputerChoice().toLowerCase();
       playRound(playerSelection, computerSelection);
     }
+  }
+
+  // after 5 rounds:
+  if (playerWins > computerWins) {
+    console.log("PLAYER WINS!");
+  } else if (computerWins > playerWins) {
+    console.log("COMPUTER WINS!");
+  } else {
+    console.log("IT'S A DRAW!");
   }
 }
