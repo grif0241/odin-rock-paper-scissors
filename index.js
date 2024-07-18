@@ -1,14 +1,24 @@
 // global variables
-let playerSelection;
-let computerSelection;
 let gameCount = 0;
 let playerWins = 0;
 let computerWins = 0;
 
-playGame();
+// event listeners and element references
+const rock = document.getElementById("rock-btn");
+const paper = document.getElementById("paper-btn");
+const scissors = document.getElementById("scissors-btn");
+
+const roundMsg = document.createElement("p");
+const outputMsg = document.createElement("p");
+
+rock.addEventListener('click', onButtonClick);
+paper.addEventListener('click', onButtonClick);
+scissors.addEventListener('click', onButtonClick);
+
+const results = document.getElementById("results");
 
 // randomly generate cpu choice
-function getComputerChoice() { // String
+function getComputerChoice() {
   let computerChoice = null;
   const randomNumber = Math.ceil(Math.random() * 3);
   switch (randomNumber) {
@@ -24,21 +34,21 @@ function getComputerChoice() { // String
     default:
       computerChoice = null;
   }
-  return computerChoice.toLowerCase();
+  return computerChoice;
 }
 
-// get humanChoice
-function getHumanChoice() { // String
-  const playerChoice = prompt("Choose rock, paper or scissors").toLowerCase();
-  if (playerChoice == "rock" || playerChoice == "scissors" || playerChoice == "paper") {
-    return playerChoice;
-  } else {
-    return null;
-  }
+function onButtonClick(event) {
+  const playerSelection = event.target.textContent;
+  const computerSelection = getComputerChoice();
+  playRound(computerSelection, playerSelection);
 }
 
 // eval function
-function playRound(playerSelection, computerSelection) { // String
+function playRound(computerSelection, playerSelection) {
+  // empty round and output msg
+  roundMsg.textContent = "";
+  outputMsg.textContent = "";
+
   let outputMessage;
   let roundMessage;
   gameCount = gameCount + 1;
@@ -49,33 +59,33 @@ function playRound(playerSelection, computerSelection) { // String
   } else {
     // switch on player selection
     switch (playerSelection) {
-      case "rock":
-        if (computerSelection == "scissors") {
+      case "Rock":
+        if (computerSelection == "Scissors") {
           playerWins++;
           roundMessage = `Player wins: ${playerSelection} beats ${computerSelection}`;
         }
-        if (computerSelection == "paper") {
+        if (computerSelection == "Paper") {
           computerWins++;
           roundMessage = `Computer wins: ${computerSelection} beats ${playerSelection}`;
         }
         break;
-      case "paper": {
-        if (computerSelection == "scissors") {
+      case "Paper": {
+        if (computerSelection == "Scissors") {
           computerWins++;
           roundMessage = `Computer wins: ${computerSelection} beats ${playerSelection}`;
         }
-        if (computerSelection == "rock") {
+        if (computerSelection == "Rock") {
           playerWins++;
           roundMessage = `Player wins: ${playerSelection} beats ${computerSelection}`;
         }
         break;
       }
-      case "scissors": {
-        if (computerSelection == "rock") {
+      case "Scissors": {
+        if (computerSelection == "Rock") {
           computerWins++;
           roundMessage = `Computer wins: ${computerSelection} beats ${playerSelection}`;
         }
-        if (computerSelection == "paper") {
+        if (computerSelection == "Paper") {
           playerWins++;
           roundMessage = `Player wins: ${playerSelection} beats ${computerSelection}`;
         }
@@ -83,32 +93,28 @@ function playRound(playerSelection, computerSelection) { // String
       }
     }
   }
-  // print output message after a round
-  outputMessage = `Games played: ${gameCount}\n${roundMessage}\nPlayer: ${playerWins} vs Computer: ${computerWins}\n`;
-  console.log(outputMessage);
+
+  roundMsg.textContent = roundMessage;
+
+  outputMessage = `Games played: ${gameCount}\nPlayer: ${playerWins} vs Computer: ${computerWins}\n`;
+
+  if (playerWins >= 5) {
+    outputMessage = "Player Wins the match!";
+    disableButtons();
+  }
+  if (computerWins >= 5) {
+    outputMessage = "Computer Wins the match!";
+    disableButtons();
+  }
+  outputMsg.textContent = outputMessage
+  results.append(roundMsg, outputMsg);
   return outputMessage;
 }
 
-// point of entry function
-function playGame() { // Undefined
-  while (gameCount < 5) {
-    playerSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-
-    // check for valid values
-    if (playerSelection && computerSelection) {
-      playRound(playerSelection, computerSelection);
-    } else {
-      playGame();
-    }
-  }
-
-  // after 5 rounds:
-  if (playerWins > computerWins) {
-    console.log("PLAYER WINS THE MATCH!");
-  } else if (computerWins > playerWins) {
-    console.log("COMPUTER WINS THE MATCH!");
-  } else {
-    console.log("IT'S A DRAW!");
-  }
+function disableButtons() {
+  const buttons = document.querySelectorAll("button");
+  console.log(buttons);
+  buttons.forEach((btn) => {
+    btn.disabled = true;
+  })
 }
