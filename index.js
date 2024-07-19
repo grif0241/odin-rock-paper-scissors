@@ -38,7 +38,8 @@ function getComputerChoice() {
 }
 
 function onButtonClick(event) {
-  const playerSelection = event.target.textContent;
+  const item = event.target;
+  const playerSelection = item.dataset.name;
   const computerSelection = getComputerChoice();
   playRound(computerSelection, playerSelection);
 }
@@ -116,5 +117,14 @@ function disableButtons() {
   console.log(buttons);
   buttons.forEach((btn) => {
     btn.disabled = true;
+  });
+
+  // add restart
+  const restartBtn = document.createElement("button");
+  restartBtn.textContent = "Play again?"
+  restartBtn.addEventListener('click', () => {
+    location.reload();
   })
+  results.appendChild(restartBtn);
 }
+

@@ -4,15 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Console Rock Paper Scissors</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
-  <button id="rock-btn">Rock</button>
-  <button id="paper-btn">Paper</button>
-  <button id="scissors-btn">Scissors</button>
-
-  <div id="results">
-
+  <div class="container">
+    <h1>Rock Paper Scissors</h1>
+    <div class="buttons">
+      <button id="rock-btn">
+        <img data-name="Rock" src="./osrs_rock.png" alt="rock">
+        Rock
+      </button>
+      
+      <button id="paper-btn">
+        <img data-name="Paper" src="./osrs_paper.png" alt="paper">
+        Paper
+      </button>
+      
+      <button id="scissors-btn">
+        <img data-name="Scissors" src="./osrs_scissors.png" alt="scissors">
+        Scissors
+      </button>
+    </div>
+    <div id="results">
+      <!-- TODO: add ui for score counter, restart game button -->
+      <!-- <h2 id="play-score">Player Score:</h2>
+      <h2 id="computer-score">Computer Score: </h2>
+      <h3 id="round-message">x</h3>
+      <h3 id="game-end-message">y</h3> -->
+    </div>
   </div>
 
   <script src="index.js"></script>
