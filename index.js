@@ -112,6 +112,7 @@ function playRound(computerSelection, playerSelection) {
   return outputMessage;
 }
 
+// stop user inout after first to 5
 function disableButtons() {
   const buttons = document.querySelectorAll("button");
   console.log(buttons);
@@ -127,4 +128,3 @@ function disableButtons() {
   })
   results.appendChild(restartBtn);
 }
-
